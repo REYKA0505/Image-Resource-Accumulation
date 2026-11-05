@@ -1,0 +1,159 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>科研绘图灵感库</title>
+  <style>
+    :root { color-scheme: light; font-family: "Segoe UI", "Microsoft YaHei", sans-serif; color: #263238; background: #f5f7f6; }
+    * { box-sizing: border-box; }
+    body { margin: 0; }
+    a { color: #156e70; text-underline-offset: 3px; }
+    a:hover { color: #a64137; }
+    button, input, select { font: inherit; }
+    button, select { cursor: pointer; }
+    button:focus-visible, input:focus-visible, select:focus-visible, a:focus-visible { outline: 3px solid #dd9d48; outline-offset: 3px; }
+    .topline { background: #233c3c; color: #fff; }
+    .topline-inner, main, .footer-inner { width: min(1440px, calc(100% - 72px)); margin: 0 auto; }
+    .topline-inner { min-height: 44px; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { font-size: 12px; font-weight: 700; letter-spacing: 0; }
+    .topline a { color: #e3f4ee; font-size: 12px; }
+    .intro { display: flex; justify-content: space-between; align-items: end; gap: 24px; padding: 30px 0 22px; border-bottom: 1px solid #d9e1df; }
+    .eyebrow { margin: 0 0 8px; color: #a5493d; font-size: 12px; font-weight: 700; }
+    h1 { margin: 0; color: #1d3030; font-size: 29px; line-height: 1.25; letter-spacing: 0; }
+    .subtitle { max-width: 760px; margin: 9px 0 0; color: #62706d; font-size: 14px; line-height: 1.7; }
+    .stats { display: flex; gap: 28px; flex-shrink: 0; }
+    .stats div { display: grid; gap: 4px; }
+    .stats strong { color: #1d5453; font-size: 25px; font-weight: 650; }
+    .stats span { color: #687674; font-size: 12px; }
+    .toolbar { padding: 20px 0 14px; }
+    .controls { display: grid; grid-template-columns: minmax(160px, 1fr) minmax(135px, 175px) minmax(140px, 185px) minmax(140px, 185px) minmax(125px, 145px); gap: 10px; }
+    .controls label { display: grid; gap: 6px; color: #596b68; font-size: 12px; }
+    .controls input, .controls select { width: 100%; height: 40px; border: 1px solid #ccd8d5; border-radius: 4px; background: #fff; color: #263b39; padding: 0 11px; }
+    .controls input::placeholder { color: #929d9a; }
+    .results-line { display: flex; justify-content: space-between; align-items: center; gap: 14px; margin: 18px 0 12px; font-size: 13px; }
+    .results-line p { margin: 0; color: #596b68; }
+    .results-line strong { color: #1c514f; }
+    .clear { border: 0; background: transparent; color: #176c69; padding: 5px 0; }
+    .grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; align-items: stretch; padding-bottom: 32px; }
+    .card { min-width: 0; overflow: hidden; border: 1px solid #dfe5e2; border-radius: 5px; background: #fff; }
+    .thumb { display: block; width: 100%; height: 224px; border: 0; border-bottom: 1px solid #edf0ee; padding: 10px; background: #fff; }
+    .thumb:hover { background: #f7faf9; }
+    .thumb img { display: block; width: 100%; height: 100%; object-fit: contain; }
+    .card-body { padding: 13px 14px 14px; }
+    .card-line { display: flex; justify-content: space-between; gap: 10px; color: #64807b; font-size: 11px; line-height: 1.4; }
+    .category { color: #a44f43; }
+    .card-title { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; min-height: 40px; margin: 9px 0 7px; color: #273c3b; font-size: 13px; font-weight: 650; line-height: 1.5; overflow-wrap: anywhere; }
+    .card-paper { display: -webkit-box; overflow: hidden; -webkit-box-orient: vertical; -webkit-line-clamp: 2; min-height: 36px; margin: 0 0 10px; color: #788481; font-size: 11px; line-height: 1.6; overflow-wrap: anywhere; }
+    .card-footer { display: flex; justify-content: space-between; align-items: center; gap: 6px; color: #778783; font-size: 11px; }
+    .card-footer a { flex-shrink: 0; }
+    .empty { display: none; border-top: 1px solid #dce3e0; padding: 40px 0 70px; color: #687773; }
+    .loading { padding: 24px 0 80px; color: #687773; }
+    footer { border-top: 1px solid #dce3e0; background: #eef2f0; }
+    .footer-inner { display: flex; justify-content: space-between; gap: 24px; padding: 22px 0 28px; color: #65736f; font-size: 12px; line-height: 1.8; }
+    .footer-inner p { max-width: 860px; margin: 0; }
+    dialog { width: min(1100px, calc(100% - 36px)); max-height: calc(100% - 36px); padding: 0; border: 0; border-radius: 5px; color: #253a38; box-shadow: 0 14px 70px #10222155; }
+    dialog::backdrop { background: #132625c9; }
+    .dialog-head { position: sticky; top: 0; z-index: 1; display: flex; justify-content: space-between; align-items: center; gap: 20px; padding: 14px 18px; background: #fff; border-bottom: 1px solid #e5eae7; }
+    .dialog-head span { color: #637773; font-size: 12px; }
+    .close { width: 34px; height: 34px; border: 1px solid #d8e1dd; border-radius: 4px; background: #fff; color: #2a4542; font-size: 23px; line-height: 1; }
+    .dialog-image { display: flex; justify-content: center; background: #fff; padding: 20px; }
+    .dialog-image img { display: block; max-width: 100%; max-height: 75vh; object-fit: contain; }
+    .dialog-details { padding: 20px 26px 28px; background: #f5f8f6; border-top: 1px solid #e0e8e4; }
+    .dialog-details h2 { margin: 0 0 8px; font-size: 19px; line-height: 1.5; letter-spacing: 0; overflow-wrap: anywhere; }
+    .dialog-details p { margin: 8px 0; font-size: 13px; line-height: 1.8; overflow-wrap: anywhere; }
+    .dialog-details .citation { color: #687a76; }
+    .dialog-details .caption { max-height: 170px; overflow: auto; color: #526461; }
+    .links { display: flex; flex-wrap: wrap; gap: 18px; padding-top: 8px; font-size: 13px; }
+    @media (max-width: 1100px) { .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+    @media (max-width: 780px) { .topline-inner, main, .footer-inner { width: min(100% - 32px, 1440px); } .intro { align-items: start; flex-direction: column; } .controls { grid-template-columns: repeat(2, minmax(0, 1fr)); } .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; } .thumb { height: 180px; } .footer-inner { flex-direction: column; } }
+    @media (max-width: 420px) { h1 { font-size: 25px; } .stats { gap: 22px; } .thumb { height: 145px; } .card-body { padding: 10px; } .card-line { flex-wrap: wrap; } .topline-inner { min-height: 48px; } }
+  </style>
+</head>
+<body>
+  <div class="topline"><div class="topline-inner"><span class="brand">FIGURE ATLAS / 科研绘图参考</span><a href="https://chutj.github.io/gallery/" target="_blank" rel="noopener noreferrer">更多图例 ↗</a></div></div>
+  <main>
+    <section class="intro">
+      <div><p class="eyebrow">科研图例 · 主题分类 · 来源索引</p><h1>科研绘图灵感库</h1><p class="subtitle">收录神经科学、果蝇、脑启发计算和复杂网络相关图例，提供主题筛选和图片出处。</p></div>
+      <div class="stats"><div><strong id="figure-count">—</strong><span>本地图例</span></div><div><strong id="paper-count">—</strong><span>篇来源论文</span></div><div><strong id="nature-count">—</strong><span>篇 Nature 正刊</span></div></div>
+    </section>
+    <section class="toolbar" aria-label="筛选图例">
+      <div class="controls">
+        <label>关键词<input id="search" type="search" placeholder="论文、图注、作者或主题" autocomplete="off"></label>
+        <label>研究主题<select id="category"><option value="">全部主题</option></select></label>
+        <label>图形线索<select id="type"><option value="">全部图形线索</option></select></label>
+        <label>来源期刊<select id="journal"><option value="">全部期刊</option></select></label>
+        <label>排序<select id="sort"><option value="curated">整理顺序</option><option value="recent">较新论文优先</option><option value="oldest">较早论文优先</option></select></label>
+      </div>
+      <div class="results-line"><p id="results" aria-live="polite">正在读取图例…</p><button class="clear" id="clear" type="button">清除筛选</button></div>
+    </section>
+    <div id="loading" class="loading">正在读取本地图片数据…</div>
+    <section class="grid" id="grid" aria-label="论文图例"></section>
+    <p class="empty" id="empty">没有找到匹配的图例，试试其他关键词或筛选条件。</p>
+  </main>
+  <footer><div class="footer-inner"><p>研究主题按论文内容整理；图形线索根据原图注的关键词自动识别，可能不完整。图片为原图缩放预览，来源论文采用 CC BY 4.0；如涉及第三方素材或再使用，请核对原文中的具体署名和许可。完整资源索引见同目录的 Obsidian 笔记。</p><a href="https://plottie.art/" target="_blank" rel="noopener noreferrer">继续发现更多论文图 ↗</a></div></footer>
+  <dialog id="detail" aria-labelledby="detail-title">
+    <div class="dialog-head"><span id="detail-label"></span><button class="close" id="close" type="button" aria-label="关闭">×</button></div>
+    <div class="dialog-image"><img id="detail-image" alt=""></div>
+    <div class="dialog-details"><h2 id="detail-title"></h2><p class="citation" id="detail-citation"></p><p id="detail-paper"></p><p class="caption" id="detail-caption"></p><div class="links"><a id="paper-link" target="_blank" rel="noopener noreferrer">查看论文与图注 ↗</a><a id="original-link" target="_blank" rel="noopener noreferrer">查看原始图片 ↗</a><a id="license-link" target="_blank" rel="noopener noreferrer">CC BY 4.0 许可 ↗</a></div></div>
+  </dialog>
+  <script src="图片数据.js"></script>
+  <script>
+    (() => {
+      const data = window.GALLERY_DATA;
+      const $ = id => document.getElementById(id);
+      if (!data || !Array.isArray(data.figures)) {
+        $('loading').textContent = '未找到图片数据。请将本页面与同目录的图片数据.js、图片文件夹保持在一起。';
+        return;
+      }
+      const figures = data.figures;
+      const categories = [...new Set(figures.map(f => f.category))];
+      const types = [...new Set(figures.flatMap(f => f.tags))];
+      const journals = [...new Set(figures.map(f => f.journal))].sort();
+      function addOptions(select, values) { values.forEach(value => { const option = document.createElement('option'); option.value = value; option.textContent = value; select.append(option); }); }
+      addOptions($('category'), categories); addOptions($('type'), types); addOptions($('journal'), journals);
+      $('figure-count').textContent = figures.length.toLocaleString();
+      $('paper-count').textContent = new Set(figures.map(f => f.pmcid)).size.toLocaleString();
+      $('nature-count').textContent = new Set(figures.filter(f => f.journal.toLowerCase() === 'nature').map(f => f.pmcid)).size.toLocaleString();
+      $('loading').hidden = true;
+      const dialog = $('detail');
+      function text(tag, value, name) { const e = document.createElement(tag); e.textContent = value; if (name) e.className = name; return e; }
+      function openDetail(f) {
+        $('detail-label').textContent = `${f.category} · ${f.label}`;
+        $('detail-image').src = f.image; $('detail-image').alt = `${f.label}: ${f.figure_title}`;
+        $('detail-title').textContent = f.figure_title;
+        $('detail-citation').textContent = `${f.author} · ${f.journal} · ${f.year} · ${f.label}`;
+        $('detail-paper').textContent = f.paper;
+        $('detail-caption').textContent = f.caption;
+        $('paper-link').href = f.paper_url; $('original-link').href = f.original; $('license-link').href = f.license;
+        dialog.showModal();
+      }
+      function card(f) {
+        const article = document.createElement('article'); article.className = 'card';
+        const button = document.createElement('button'); button.type = 'button'; button.className = 'thumb'; button.setAttribute('aria-label', `放大查看 ${f.label}: ${f.figure_title}`);
+        const img = document.createElement('img'); img.src = f.image; img.alt = `${f.label}: ${f.figure_title}`; img.loading = 'lazy'; img.decoding = 'async'; button.append(img); button.addEventListener('click', () => openDetail(f)); article.append(button);
+        const body = document.createElement('div'); body.className = 'card-body';
+        const line = document.createElement('div'); line.className = 'card-line'; line.append(text('span', f.category, 'category'), text('span', f.label)); body.append(line);
+        body.append(text('h2', f.figure_title, 'card-title'), text('p', f.paper, 'card-paper'));
+        const foot = document.createElement('div'); foot.className = 'card-footer'; foot.append(text('span', `${f.journal} · ${f.year}`));
+        const link = document.createElement('a'); link.textContent = '原文 ↗'; link.href = f.paper_url; link.target = '_blank'; link.rel = 'noopener noreferrer'; foot.append(link); body.append(foot); article.append(body); return article;
+      }
+      function render() {
+        const query = $('search').value.trim().toLocaleLowerCase();
+        const category = $('category').value, type = $('type').value, journal = $('journal').value;
+        let filtered = figures.filter(f => (!category || f.category === category) && (!type || f.tags.includes(type)) && (!journal || f.journal === journal) && (!query || [f.paper, f.figure_title, f.caption, f.author, f.journal, f.category, f.label, f.pmcid, f.doi, ...f.tags].join(' ').toLocaleLowerCase().includes(query)));
+        if ($('sort').value !== 'curated') filtered = filtered.slice().sort((a, b) => $('sort').value === 'recent' ? Number(b.year) - Number(a.year) : Number(a.year) - Number(b.year));
+        $('results').replaceChildren(document.createTextNode('找到 '), text('strong', filtered.length.toLocaleString()), document.createTextNode(' 张图例。图形线索由图注关键词识别。'));
+        const fragment = document.createDocumentFragment(); filtered.forEach(f => fragment.append(card(f))); $('grid').replaceChildren(fragment); $('empty').style.display = filtered.length ? 'none' : 'block';
+      }
+      let debounce;
+      $('search').addEventListener('input', () => { clearTimeout(debounce); debounce = setTimeout(render, 150); });
+      ['category', 'type', 'journal', 'sort'].forEach(id => $(id).addEventListener('change', render));
+      $('clear').addEventListener('click', () => { ['search', 'category', 'type', 'journal'].forEach(id => $(id).value = ''); $('sort').value = 'curated'; render(); });
+      $('close').addEventListener('click', () => dialog.close());
+      dialog.addEventListener('click', e => { if (e.target === dialog) dialog.close(); });
+      render();
+    })();
+  </script>
+</body>
+</html>
